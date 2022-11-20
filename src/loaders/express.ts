@@ -1,12 +1,14 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import routes from '@/api';
 import * as config from '@/config';
+import Logger from './logger';
+
 export default ({ app }: { app: express.Application }) => {
-  app.get('/status', (req, res) => {
+  app.get('/status', (req: Request, res: Response) => {
     res.status(200).end();
   });
-  app.head('/status', (req, res) => {
+  app.head('/status', (req: Request, res: Response) => {
     res.status(200).end();
   });
 
@@ -26,6 +28,13 @@ export default ({ app }: { app: express.Application }) => {
 
   // Transforms the raw string of req.body into json
   app.use(express.json());
+
+  // Global Middleware
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    Logger.info(`[API CALLED] ${req.url}`);
+    next();
+  });
+
   // Load API routes
   app.use(config.api.prefix, routes());
 
@@ -37,14 +46,14 @@ export default ({ app }: { app: express.Application }) => {
   // );
 
   /// catch 404 and forward to error handler
-  app.use((req, res, next) => {
+  app.use((req: Request, res: Response, next: NextFunction) => {
     const err = new Error('Not Found');
     // err['status'] = 404;
     next(err);
   });
 
   /// error handlers
-  app.use((err: any, req: any, res: any, next: any) => {
+  app.use((err: any, req: any, res: any, next: NextFunction) => {
     /**
      * Handle 401 thrown by express-jwt library
      */
@@ -56,7 +65,7 @@ export default ({ app }: { app: express.Application }) => {
     }
     return next(err);
   });
-  app.use((err: any, req: any, res: any, next: any) => {
+  app.use((err: any, req: any, res: any, next: NextFunction) => {
     res.status(err.status || 500);
     res.json({
       errors: {

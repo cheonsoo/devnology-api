@@ -17,8 +17,8 @@ export default ({
     });
 
     const agendaInstance = agendaFactory({ mongoConnection });
-    console.log(mongoConnection);
-    console.log(agendaInstance);
+    // console.log(mongoConnection);
+    // console.log(agendaInstance);
     Container.set('agendaInstance', agendaInstance);
     Container.set('logger', LoggerInstance);
 

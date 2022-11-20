@@ -1,6 +1,6 @@
 import express from 'express';
 import expressLoader from '@/loaders/express';
-import mongoLoader from '@/loaders/mongodb';
+import mongoLoader from '@/loaders/mongoose';
 import dependencyInjectorLoader from './dependencyInjector';
 import Logger from './logger';
 

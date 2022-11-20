@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6", // 어떤 버전으로 컴파일할지 작성
+    "target": "es2017", // 어떤 버전으로 컴파일할지 작성
     "lib": [
       "es2017",
       "esnext.asynciterable"
@@ -25,12 +25,17 @@
       "@/*": ["./src/*"]
     },
     "typeRoots": [
-      "./src/types"
+      "./src/types",
+      "./src/types/**/*.d.ts"
     ],
     "types": [ "node" ]
   },
+  "ts-node": {
+    "files": true
+  },
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "./src/types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules",

@@ -10,7 +10,7 @@ export const logs = {
 };
 
 export const jwtSecret = 'p4sta.w1th-b0logn3s3-s@uce';
-export const jwtAlgorithm = 'RS256';
+export const jwtAlgorithm = ['sha1', 'RS256', 'HS256'];
 // export const jwtSecret = process.env.JWT_SECRET;
 // export const jwtAlgorithm = process.env.JWT_ALGO;
 
